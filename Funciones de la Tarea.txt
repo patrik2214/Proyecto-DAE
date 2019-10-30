@@ -24,4 +24,35 @@ BEGIN
 END;
 $$LANGUAGE'plpgsql'
 
-SELECT fn_cliente(NULL,'12345678911','Emanuel Chavez','111111111','mchavez@gmail.com','Los manzanos 111',true,2)
+SELECT fn_cliente(NULL,'12345678911','Emanuel Chavez','111111111','mchavez@gmail.com','Los manzanos 111',true,2);
+
+
+CREATE TABLE cambio(
+codcambio integer primary key,
+producto1 integer not null,
+producto2 integer not null,
+fecha date
+
+);
+
+select * from detalle;
+
+CREATE OR REPLACE FUNCTION cambio(codp1 integer,codp2 integer,cant integer,venta integer,des smallint)RETURNS void AS
+$$
+DECLARE
+	c int;
+	p decimal(8,2);
+	sub decimal(8,2);
+	
+BEGIN
+	SELECT cantidad INTO c FROM detalle WHERE codproducto=codp1 and numventa=venta;
+	UPDATE producto SET stock=stock+c WHERE codproducto=codp1;
+	DELETE FROM detalle WHERE  codproducto=codp1 and numventa=venta;
+	SELECT precio INTO p FROM producto WHERE codproducto=codp2;
+	INSERT INTO detalle VALUES(venta,codp2,cant,p,des,(p*cant),false);
+	SELECT SUM(subtotal)into sub FROM detalle WHERE numventa=venta;
+	UPDATE venta SET igv=0.18*sub, subtotal=sub-igv,total=sub WHERE numventa=venta;
+	INSERT INTO cambio VALUES((SELECT COALESCE(max(codcambio),0)+1 from cambio),codp1,codp2,CURRENT_DATE);
+	
+END;
+$$LANGUAGE'plpgsql'

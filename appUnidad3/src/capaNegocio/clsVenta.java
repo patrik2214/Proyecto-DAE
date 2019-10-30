@@ -6,6 +6,7 @@
 package capaNegocio;
 
 import capaDatos.clsJDBC;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -196,4 +197,18 @@ public class clsVenta {
         } 
        
    } 
+   
+   public void registrarCambio(Integer codp1,Integer codp2,Integer cant,Integer venta,Integer des) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT cambio(?,?,?,?,?)");
+        sentencia.setInt(1, codp1);
+        sentencia.setInt(2, codp2 );
+        sentencia.setInt(3, cant);
+        sentencia.setInt(4, venta);
+        sentencia.setInt(5, des);
+        ResultSet resultado = sentencia.executeQuery();
+    }
+   
 }

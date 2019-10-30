@@ -1,0 +1,27 @@
+select*from cliente
+
+CREATE OR REPLACE FUNCTION fn_cliente(dni char(8),ruc char(11),nombre varchar(30),telefono varchar(13),correo varchar(50),direccion varchar(50),vigencia boolean,tipo integer)RETURNS void AS
+$$
+DECLARE
+	cant integer;
+BEGIN
+	SELECT COUNT(*) INTO cant FROM cliente WHERE nombres=nombre;
+	IF(cant=0)THEN
+	
+		IF (tipo=1)THEN
+		INSERT INTO cliente VALUES((SELECT COALESCE(max(codCliente),0)+1 from CLIENTE), dni,NULL,nombre,telefono,correo,direccion,vigencia,tipo);
+		END IF;
+		
+		IF (tipo=2)THEN
+		INSERT INTO cliente VALUES((SELECT COALESCE(max(codCliente),0)+1 from CLIENTE), NULL,ruc,nombre,telefono,correo,direccion,vigencia,tipo);
+		END IF;
+		
+		IF (tipo=3)THEN
+		INSERT INTO cliente VALUES((SELECT COALESCE(max(codCliente),0)+1 from CLIENTE), dni,ruc,nombre,telefono,correo,direccion,vigencia,tipo);
+		END IF;
+		
+	END IF;
+END;
+$$LANGUAGE'plpgsql'
+
+SELECT fn_cliente(NULL,'12345678911','Emanuel Chavez','111111111','mchavez@gmail.com','Los manzanos 111',true,2)

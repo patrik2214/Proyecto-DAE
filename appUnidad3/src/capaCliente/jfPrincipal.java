@@ -90,6 +90,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        MnuEstadisticas = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -497,6 +498,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu7.setText("Reportes");
+        jMenu7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu7ActionPerformed(evt);
+            }
+        });
 
         jMenu9.setText("Consultas");
 
@@ -516,6 +522,14 @@ public class jfPrincipal extends javax.swing.JFrame {
 
         jMenuItem14.setText("Productos");
         jMenu7.add(jMenuItem14);
+
+        MnuEstadisticas.setText("Estadisticas");
+        MnuEstadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnuEstadisticasActionPerformed(evt);
+            }
+        });
+        jMenu7.add(MnuEstadisticas);
 
         jMenuBar1.add(jMenu7);
 
@@ -642,6 +656,21 @@ public class jfPrincipal extends javax.swing.JFrame {
         objcliente.setVisible(true);
     }//GEN-LAST:event_usuarioTActionPerformed
 
+    private void jMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7ActionPerformed
+        // TODO add your handling code here:
+        jdEstadisticaVentas objestadisticas = new jdEstadisticaVentas(this, true);
+        objestadisticas.setLocationRelativeTo(this);
+        objestadisticas.setVisible(true);
+    }//GEN-LAST:event_jMenu7ActionPerformed
+
+    private void MnuEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuEstadisticasActionPerformed
+        // TODO add your handling code here:
+        jdEstadisticaVentas objestadisticas = new jdEstadisticaVentas(this, true);
+        objestadisticas.setLocationRelativeTo(this);
+        objestadisticas.setVisible(true);
+        
+    }//GEN-LAST:event_MnuEstadisticasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -678,6 +707,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MnuEstadisticas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

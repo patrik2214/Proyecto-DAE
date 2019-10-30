@@ -211,4 +211,88 @@ public class clsVenta {
         ResultSet resultado = sentencia.executeQuery();
     }
    
+   
+   public int TotalVentas() throws Exception 
+    {
+        int rpta=0;
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT fn_ventasT()");
+        ResultSet resultado = sentencia.executeQuery();
+        
+        if(resultado.next()){
+            rpta=resultado.getInt("fn_ventasT");
+            return rpta;
+        }
+        return rpta;
+    }
+   
+   public float MaxVentas() throws Exception 
+    {
+       float rpta=0;
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT fn_ventasM()");
+        ResultSet resultado = sentencia.executeQuery();
+        
+        if(resultado.next()){
+            rpta=resultado.getFloat("fn_ventasM");
+            return rpta;
+        }
+        return rpta;
+    }
+   
+   public float MinVentas() throws Exception 
+    {
+       float rpta=0;
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT fn_ventasMi()");
+        ResultSet resultado = sentencia.executeQuery();
+        
+        if(resultado.next()){
+            rpta=resultado.getFloat("fn_ventasMi");
+            return rpta;
+        }
+        return rpta;
+    }
+   
+   public float MonVentas() throws Exception 
+    {
+       float rpta=0;
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT fn_ventasMo()");
+        ResultSet resultado = sentencia.executeQuery();
+        
+        if(resultado.next()){
+            rpta=resultado.getFloat("fn_ventasMo");
+            return rpta;
+        }
+        return rpta;
+    }
+   
+      public ResultSet Ventas() throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT * FROM fn_venta()");
+        ResultSet resultado = sentencia.executeQuery();
+        
+        if(resultado.next()){
+            return resultado;
+        }
+        return null;
+    }
+   
+      public ResultSet BUSQUEDA(int v) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT * FROM fn_Mo(?)");
+        sentencia.setInt(1, v);
+        ResultSet resultado = sentencia.executeQuery();        
+        return resultado;
+    }                 
+     
 }

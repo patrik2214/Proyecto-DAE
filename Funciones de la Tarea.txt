@@ -56,3 +56,31 @@ BEGIN
 	
 END;
 $$LANGUAGE'plpgsql'
+
+
+CREATE OR REPLACE FUNCTION fn_venta()RETURNS table(totalv bigint,monto_total numeric(8,2),monto_max numeric(8,2),monto_min numeric(8,2))  AS
+$$
+DECLARE
+
+BEGIN
+	RETURN query
+	SELECT COUNT(*) ,SUM(total) ,(SELECT MAX(total)), (SELECT MIN(total)) FROM venta;
+	
+END;
+$$LANGUAGE'plpgsql'
+
+
+CREATE OR REPLACE FUNCTION fn_Mo(v int)RETURNS table(Numero int,fecha date, cliente varchar(30), total numeric(8,2),producto varchar(30),cantidad int,descuento smallint)  AS
+$$
+DECLARE
+BEGIN
+	RETURN query
+	SELECT venta.numventa,venta.fecha,cliente.nombres,venta.total,producto.nomproducto,detalle.cantidad,detalle.descuento
+	FROM cliente INNER JOIN (SELECT*FROM venta WHERE numventa=v)venta on venta.codcliente=cliente.codcliente
+	INNER JOIN detalle on detalle.numventa=venta.numventa
+	INNER JOIN producto on producto.codproducto=detalle.codproducto
+	ORDER BY producto.nomproducto ASC;
+	
+	
+END;
+$$LANGUAGE'plpgsql'

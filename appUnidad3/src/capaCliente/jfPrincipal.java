@@ -87,6 +87,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -514,6 +515,14 @@ public class jfPrincipal extends javax.swing.JFrame {
 
         jMenu7.add(jMenu9);
 
+        jMenuItem11.setText("Reporte Ventas");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem11);
+
         jMenuItem12.setText("Ventas");
         jMenu7.add(jMenuItem12);
 
@@ -671,6 +680,16 @@ public class jfPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_MnuEstadisticasActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        jdReporteVentas objrepo = new jdReporteVentas(this, true);
+        objrepo.setLocationRelativeTo(this);
+        objrepo.setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -736,6 +755,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;

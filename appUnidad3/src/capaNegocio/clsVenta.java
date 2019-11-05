@@ -6,6 +6,8 @@
 package capaNegocio;
 
 import capaDatos.clsJDBC;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -294,5 +296,16 @@ public class clsVenta {
         ResultSet resultado = sentencia.executeQuery();        
         return resultado;
     }                 
-     
+    
+        public ResultSet ReporteVentas(Date fecha1,Date fecha2) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT * FROM informe_ventas(?,?)");
+        sentencia.setDate(1, fecha1);
+        sentencia.setDate(2, fecha2);
+        ResultSet resultado = sentencia.executeQuery();        
+        return resultado;
+    } 
+
 }

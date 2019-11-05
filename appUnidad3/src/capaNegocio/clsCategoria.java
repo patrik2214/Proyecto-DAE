@@ -2,6 +2,7 @@ package capaNegocio;
 
 import capaDatos.clsJDBC;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class clsCategoria {
     clsJDBC objConectar = new clsJDBC();
@@ -24,12 +25,21 @@ public class clsCategoria {
     }
     
     public void registrar(Integer cod, String nom,String des, Boolean vig) throws Exception{
-        strSQL="insert into CATEGORIA values(" + cod + ",'" + nom + "','" + des + "'," + vig + ")";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO categoria VALUES(?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2, nom);
+            sentencia.setString(3, des);
+            sentencia.setBoolean(4, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente");            
         } catch (Exception e) {
-            throw new Exception("Error al registrar la categoría");
-        }
+            throw new Exception("Error al registrar Categoria");
+        }finally{
+            objConectar.desconectar();
+        } 
     }
     
     public ResultSet buscarCategoria(Integer cod) throws Exception{

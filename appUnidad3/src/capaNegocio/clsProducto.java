@@ -3,11 +3,15 @@ package capaNegocio;
 
 import capaDatos.clsJDBC;
 import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 public class clsProducto {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con=null;
+    Statement sent;
     
     public ResultSet listarProductos() throws Exception{
         strSQL="select P.*,M.nomMarca, C.nomCategoria from producto P inner join Marca M on P.codMarca=M.codMarca inner join Categoria C on P.codCategoria=C.codCategoria order by codProducto ";
@@ -32,15 +36,31 @@ public class clsProducto {
         return 0;
     }
     
-    public void registrarProducto(Integer cod, String nom, String des, Double pre, Integer sto, Boolean vig, Integer codMar, Integer codCat) throws Exception{
-        strSQL="insert into Producto values(" + cod + ",'" + nom + "','" + des + "'," + pre + "," + sto + "," + vig + "," + codMar + "," + codCat + ")";
-        try {
-            objConectar.ejecutarBD(strSQL);
+    
+    public void registrarProducto(int cod,String nom, String des, Double pre, Integer sto, Boolean vig, Integer codMar, Integer codCat) throws Exception{       
+      try {         
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2, nom);
+            sentencia.setString(3, des);
+            sentencia.setDouble(4, pre);
+            sentencia.setInt(5, sto);
+            sentencia.setBoolean(6, vig);
+            sentencia.setInt(7, codMar);
+            sentencia.setInt(8, codCat);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente");            
         } catch (Exception e) {
-            throw new Exception ("Error al registrar un producto!");
-        }
-            
-    }
+            throw new Exception("Error al registrar Producto");
+        }finally{
+            objConectar.desconectar();
+        } 
+       
+   }
+    
+    
     
     public void modificarProducto(Integer cod, String nom, String des, Double pre, Integer sto, Boolean vig, Integer codMar, Integer codCat) throws Exception{
         strSQL="update Producto set nomProducto='" + nom + "', descripcion='" + des + "', precio=" + pre + ", stock=" + sto + ", vigencia=" + vig + ", codMarca=" + codMar + ", codCategoria=" + codCat + " where codProducto=" + cod;

@@ -3,11 +3,14 @@ package capaNegocio;
 
 import capaDatos.clsJDBC;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class clsCliente {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con=null;
+    Statement sent;
 
     public ResultSet listarTipoClientes() throws Exception{
         strSQL = "select * from TIPO_CLIENTE" ;
@@ -54,15 +57,70 @@ public class clsCliente {
     }
     
     public void registrar(Integer cod, Integer codTipo, String dni, String ruc, String nom, String tel, String cor, String dir, Boolean vig) throws Exception{
-        if (codTipo==1){strSQL="insert into CLIENTE values(" + cod + ",'" + dni + "',null,'" + nom + "','" + tel + "','" + cor + "','" + dir + "'," + vig + "," + codTipo + ")";}
-        if (codTipo==2){strSQL="insert into CLIENTE values(" + cod + ",null,'" + ruc + "','" + nom + "','" + tel + "','" + cor + "','" + dir + "'," + vig + "," + codTipo + ")";}
-        if (codTipo==3){strSQL="insert into CLIENTE values(" + cod + ",'" + dni + "','" + ruc + "','" + nom + "','" + tel + "','" + cor + "','" + dir + "'," + vig + "," + codTipo + ")";}
-       // strSQL="insert into CLIENTE values(" + cod + ",'" + dni + "','" + ruc + "','" + nom + "','" + tel + "','" + cor + "','" + dir + "'," + vig + "," + codTipo + ")";
         try {
-            objConectar.ejecutarBD(strSQL);
+            if (codTipo==1){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setInt(2,codTipo);
+            sentencia.setString(3, dni);
+            sentencia.setString(4, null); //"'null'"
+            sentencia.setString(5, nom);
+            sentencia.setString(6, tel);
+            sentencia.setString(7, cor);
+            sentencia.setString(8,dir);
+            sentencia.setBoolean(9, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
+            if (codTipo==2){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setInt(2,codTipo);
+            sentencia.setString(3, dni);
+            sentencia.setString(4, null); //"'null'"
+            sentencia.setString(5, nom);
+            sentencia.setString(6, tel);
+            sentencia.setString(7, cor);
+            sentencia.setString(8,dir);
+            sentencia.setBoolean(9, vig);
+            sentencia.executeUpdate();  
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
+            if (codTipo==3){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setInt(2,codTipo);
+            sentencia.setString(3, dni);
+            sentencia.setString(4, null); //"'null'"
+            sentencia.setString(5, nom);
+            sentencia.setString(6, tel);
+            sentencia.setString(7, cor);
+            sentencia.setString(8,dir);
+            sentencia.setBoolean(9, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
         } catch (Exception e) {
-            throw new Exception("Error al registrar cliente");
-        }
+            throw new Exception("Error al registrar Producto");
+        }finally{
+            objConectar.desconectar();
+        } 
+        
     }
     
     public ResultSet buscarCliente(Integer cod) throws Exception{
@@ -76,12 +134,44 @@ public class clsCliente {
     }
     
     public void eliminarCliente(Integer cod) throws Exception {
-        strSQL="delete from CLIENTE where codCliente=" + cod;
+        Integer cantidad=0;
+        Integer cantidad2=0;
         try {
-            objConectar.ejecutarBD(strSQL);
+            strSQL="SELECT COUNT(*) AS cantidad FROM venta WHERE codcliente=" + cod ;
+            objConectar.conectar();
+            con=objConectar.getCon();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            rs=sent.executeQuery(strSQL);
+            
+            while(rs.next()){
+                cantidad=rs.getInt("cantidad");
+            }
+            strSQL="SELECT COUNT(*) AS cantidad FROM venta WHERE estadopago=false and codcliente=" + cod ;
+            rs=sent.executeQuery(strSQL);
+            while(rs.next()){
+                cantidad2=rs.getInt("cantidad");
+            }
+            
+            if(cantidad>0){
+                if (cantidad2>0){
+                  JOptionPane.showMessageDialog(null,"El cliente tiene deudas pendientes, no puede ser eliminado");
+                }else{
+                    String strSQL1="UPDATE cliente set vigencia=false WHERE codcliente="+cod+"";
+                    sent.executeUpdate(strSQL1);
+                }
+            }else{
+                String strSQL1="DELETE FROM cliente WHERE codcliente=" + cod;
+                sent.executeUpdate(strSQL1);
+            }    
+            con.commit();
+            JOptionPane.showMessageDialog(null, "Eliminado Correctamente");
         } catch (Exception e) {
-            throw new Exception("Error al eliminar cliente");
-        }
+            con.rollback();
+            throw new Exception("Error al eliminar al cliente");
+        }finally{
+            objConectar.desconectar();
+        } 
     }
     
     public ResultSet buscarClienteDniRuc(String cod, Boolean tipo) throws Exception{

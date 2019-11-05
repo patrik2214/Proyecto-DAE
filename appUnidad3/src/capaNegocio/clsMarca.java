@@ -2,11 +2,14 @@ package capaNegocio;
 
 import capaDatos.clsJDBC;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class clsMarca {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con=null;
+    Statement sent;
     
     public Integer generarCodigoMarca() throws Exception{
         strSQL = "SELECT COALESCE(max(codMarca),0)+1 as codigo from marca" ;
@@ -15,6 +18,7 @@ public class clsMarca {
             while(rs.next()){
                 return rs.getInt("codigo");
             }
+            
         } catch (Exception e) {
             throw new Exception("Error al generar código de marca");
         }
@@ -22,12 +26,20 @@ public class clsMarca {
     }
     
     public void registrar(Integer cod, String nom, Boolean vig) throws Exception{
-        strSQL="insert into MARCA values(" + cod + ",'" + nom + "'," + vig + ")";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO marca VALUES(?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2,nom);
+            sentencia.setBoolean(3, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
         } catch (Exception e) {
             throw new Exception("Error al registrar la marca");
-        }
+        }  
+        
     }
     
     public ResultSet buscarMarca(Integer cod) throws Exception{
@@ -39,14 +51,38 @@ public class clsMarca {
             throw new Exception("Error al buscar marca");
         }
     }
+  
     
     public void eliminarMarca(Integer cod) throws Exception {
-        strSQL="delete from marca where codMarca=" + cod;
+        int cantidad = 0;
         try {
-            objConectar.ejecutarBD(strSQL);
+            strSQL="SELECT COUNT(*) AS cantidad FROM marca WHERE codMarca=" + cod ;
+            objConectar.conectar();
+            con=objConectar.getCon();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            rs=sent.executeQuery(strSQL);
+            while(rs.next()){
+                cantidad=rs.getInt("cantidad");
+            }
+            
+            if(cantidad>0){
+                String strSQL1="UPDATE producto SET vigencia=false WHERE codmarca="+cod+"";
+                sent.executeUpdate(strSQL1);
+                String strSQL2="UPDATE FROM marca SET vigencia=false WHERE codMarca=" + cod; 
+                sent.executeUpdate(strSQL2);
+            }else{
+                String strSQL2="DELETE FROM marca WHERE codMarca=" + cod;
+                sent.executeUpdate(strSQL2);
+            }    
+            con.commit();
+            JOptionPane.showMessageDialog(null, "Eliminado Correctamente");
         } catch (Exception e) {
+            con.rollback();
             throw new Exception("Error al eliminar la marca");
-        }
+        }finally{
+            objConectar.desconectar();
+        } 
     }
 
     public ResultSet listarMarcas() throws Exception{

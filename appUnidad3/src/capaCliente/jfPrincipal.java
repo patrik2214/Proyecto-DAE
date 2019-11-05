@@ -72,6 +72,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         usuarioT = new javax.swing.JMenuItem();
@@ -421,6 +422,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem4.setText("Usuario");
         jMenu4.add(jMenuItem4);
 
+        jMenuItem22.setText("Cliente");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem22);
+
         jMenuItem5.setText("Marca");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -690,6 +699,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        // TODO add your handling code here:
+        jdManCliente objcliente = new jdManCliente (this, true);
+        objcliente.setLocationRelativeTo(this);
+        objcliente.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -767,6 +784,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

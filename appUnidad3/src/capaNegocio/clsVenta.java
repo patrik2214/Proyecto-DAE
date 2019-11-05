@@ -169,6 +169,9 @@ public class clsVenta {
         return 0;
     }
    
+   
+   
+   
    public void GestionarDevolucion(int codVenta,String motivo, Float monto,JTable tbldetalle) throws Exception{       
       try {         
             objConectar.conectar();

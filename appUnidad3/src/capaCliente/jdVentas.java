@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +20,7 @@ public class jdVentas extends javax.swing.JDialog {
     clsCliente objCliente = new clsCliente();
     clsProducto objProducto = new clsProducto();
     clsVenta objVenta = new clsVenta();
-
+    public String num;
 
     public jdVentas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -80,7 +82,7 @@ public class jdVentas extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        btnSalir = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         btnSalir1 = new javax.swing.JButton();
         btnSalir2 = new javax.swing.JButton();
 
@@ -231,7 +233,7 @@ public class jdVentas extends javax.swing.JDialog {
                                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -315,8 +317,8 @@ public class jdVentas extends javax.swing.JDialog {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCodigo1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(jSpinner1))
+                    .addComponent(txtCodigo1)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,14 +434,14 @@ public class jdVentas extends javax.swing.JDialog {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
-        btnSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/salirMarca.png"))); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.setIconTextGap(0);
-        btnSalir.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnPagar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/marca.png"))); // NOI18N
+        btnPagar.setText("Pagar");
+        btnPagar.setIconTextGap(0);
+        btnPagar.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnPagarActionPerformed(evt);
             }
         });
 
@@ -456,7 +458,7 @@ public class jdVentas extends javax.swing.JDialog {
 
         btnSalir2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSalir2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/limpiarMarca.png"))); // NOI18N
-        btnSalir2.setText("Anular");
+        btnSalir2.setText("Limpiar");
         btnSalir2.setIconTextGap(0);
         btnSalir2.setMargin(new java.awt.Insets(2, 2, 2, 2));
         btnSalir2.addActionListener(new java.awt.event.ActionListener() {
@@ -473,7 +475,7 @@ public class jdVentas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -489,7 +491,7 @@ public class jdVentas extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -500,17 +502,14 @@ public class jdVentas extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -617,32 +616,31 @@ public class jdVentas extends javax.swing.JDialog {
         //llenarTablaInicial();
     }//GEN-LAST:event_formWindowActivated
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        try {
+            // TODO add your handling code here:
+            objVenta.pagocontado(Integer.parseInt(txtNumero.getText()));
+            num = txtNumero.getText();  
+            
+            jdPagoComprobante obj = new jdPagoComprobante ((Frame) SwingUtilities.getWindowAncestor(this),true);
+            obj.numero=num;
+            obj.info(Integer.parseInt(num));
+            obj.setVisible(true);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(jdVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
-        // TODO add your handling code here:
-//        try {
-//            objVenta.registrar(txtNumero.getText(), txtNumero3.getText(), txtNumero1.getText(), txtNumero2.getText(), rdbBoleta.isSelected(), txtCodigo.getText());
-//            int ctd = tblDetalle.getRowCount();
-//            for (int i=0; i<ctd; i++){
-//                String descuento = tblDetalle.getValueAt(i, 4).toString();
-//                objVenta.registrarDetalle(txtNumero.getText(), tblDetalle.getValueAt(i, 0).toString(), tblDetalle.getValueAt(i, 3).toString(), tblDetalle.getValueAt(i, 5).toString(), descuento.substring(0, descuento.length()-1), tblDetalle.getValueAt(i, 6).toString());
-//                int nuevoStock = objProducto.getStock(Integer.parseInt(tblDetalle.getValueAt(i, 0).toString())) - Integer.parseInt(tblDetalle.getValueAt(i, 3).toString());
-//                objProducto.actualizarProducto(Integer.parseInt(tblDetalle.getValueAt(i, 0).toString()), nuevoStock);
-//            }
-//            JOptionPane.showMessageDialog(rootPane, "Venta Registrada");
-//            limpiarControles();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-//        }
-        
+
         try {
             objVenta.registrar(txtNumero.getText(), txtTotal.getText(), txtSubTotal.getText(), txtIGV.getText(), rdbBoleta.isSelected(), txtCodigo.getText(),tblDetalle);
             JOptionPane.showMessageDialog(rootPane, "Venta Registrada");
-            limpiarControles();
+
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -662,6 +660,7 @@ public class jdVentas extends javax.swing.JDialog {
 
     private void btnSalir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir2ActionPerformed
         // TODO add your handling code here:
+        limpiarControles();
     }//GEN-LAST:event_btnSalir2ActionPerformed
 
     private void btnBuscarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarVentaActionPerformed
@@ -689,6 +688,8 @@ public class jdVentas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBuscarVentaActionPerformed
 
+    
+    
     private void eliminarProducto(int producto){
         //Double subtotal=0.0;
         try {
@@ -843,7 +844,7 @@ public class jdVentas extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnBuscar3;
     private javax.swing.JButton btnBuscarVenta;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnSalir2;
     private com.toedter.calendar.JDateChooser jDateChooser1;

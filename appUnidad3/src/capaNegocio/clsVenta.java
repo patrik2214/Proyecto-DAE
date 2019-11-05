@@ -300,7 +300,7 @@ public class clsVenta {
         return resultado;
     }                 
     
-        public ResultSet ReporteVentas(Date fecha1,Date fecha2) throws Exception 
+    public ResultSet ReporteVentas(Date fecha1,Date fecha2) throws Exception 
     {
         objConectar.conectar();
         Connection con = objConectar.getCon();
@@ -320,14 +320,14 @@ public class clsVenta {
                 return rs.getFloat("monto");
             }
         } catch (Exception e) {
-            throw new Exception("Error al extraer código del Producto");
+            throw new Exception("Error al extraer monto");
         }
         return 0;
     }
 
      public void pagocontado(Integer cod) throws Exception 
     {
-        boolean valor=false;
+        
         try {
             strSQL="SELECT estadopago FROM venta WHERE numventa=" + cod ;
             
@@ -336,21 +336,27 @@ public class clsVenta {
             con.setAutoCommit(false);
             sent=con.createStatement();
             
+            boolean valor=false;
+            rs=sent.executeQuery(strSQL);
+            
             while(rs.next()){
                 valor=rs.getBoolean("estadopago");
             }
-        
-            if(valor=false){
-                 String strSQL1 = "INSERT INTO pago VALUES ("+cod+",(SELECT COALESCE(max(codpago),0)+1 FROM pago),null,current_date,(SELECT total FROM venta WHERE numventa="+cod+"),0,(SELECT total FROM venta WHERE numventa="+cod+"),'contado',true)";
-                 sent.executeUpdate(strSQL1);
-                 JOptionPane.showMessageDialog(null, "Pago Registrado");            
+            
+            if(valor){
+                JOptionPane.showMessageDialog(null,"No se puede pagar una venta que ya esta cancelada");          
             }else{
-                JOptionPane.showMessageDialog(null,"No se puede pagar una venta que ya esta cancelada");
+                String strSQL1 = "INSERT INTO pago VALUES ("+cod+",(SELECT COALESCE(max(codpago),0)+1 FROM pago),null,current_date,(SELECT total FROM venta WHERE numventa="+cod+"),0,(SELECT total FROM venta WHERE numventa="+cod+"),'contado',true)";
+                String strSQL2 = "UPDATE venta SET estadopago=true WHERE numventa="+cod+"";
+                sent.executeUpdate(strSQL1);
+                sent.executeUpdate(strSQL2);
+                con.commit();
+                JOptionPane.showMessageDialog(null, "Pago Registrado"); 
             } 
-            con.commit();
+            
         } catch (Exception e) {
             con.rollback();
-            throw new Exception("Error al registrar la devolucion");
+            throw new Exception("Error ");
         }finally{
             objConectar.desconectar();
         }   

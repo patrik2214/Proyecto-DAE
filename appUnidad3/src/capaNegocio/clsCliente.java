@@ -158,14 +158,16 @@ public class clsCliente {
                   JOptionPane.showMessageDialog(null,"El cliente tiene deudas pendientes, no puede ser eliminado");
                 }else{
                     String strSQL1="UPDATE cliente set vigencia=false WHERE codcliente="+cod+"";
+                    JOptionPane.showMessageDialog(null, "Eliminado Correctamente DB");
                     sent.executeUpdate(strSQL1);
                 }
             }else{
                 String strSQL1="DELETE FROM cliente WHERE codcliente=" + cod;
+                JOptionPane.showMessageDialog(null, "Eliminado Correctamente");
                 sent.executeUpdate(strSQL1);
             }    
             con.commit();
-            JOptionPane.showMessageDialog(null, "Eliminado Correctamente");
+            
         } catch (Exception e) {
             con.rollback();
             throw new Exception("Error al eliminar al cliente");

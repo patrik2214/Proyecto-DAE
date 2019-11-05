@@ -81,6 +81,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -88,6 +89,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -384,7 +386,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -490,6 +492,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem10);
 
+        jMenuItem24.setText("Devolucion");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem24);
+
         jMenu8.setText("Pagos");
 
         jMenuItem16.setText("Registrar pago ");
@@ -523,6 +533,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenu9.add(jMenuItem21);
 
         jMenu7.add(jMenu9);
+
+        jMenuItem23.setText("Comprobante C");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem23);
 
         jMenuItem11.setText("Reporte Ventas");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
@@ -655,16 +673,12 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
-        jdDevolucion objDevolucion = new jdDevolucion(this,true);
-        objDevolucion.setLocationRelativeTo(this);
-        objDevolucion.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        jdDevolucion objDevolucion = new jdDevolucion(this,true);
-        objDevolucion.setLocationRelativeTo(this);
-        objDevolucion.setVisible(true);
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void usuarioTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioTActionPerformed
@@ -706,6 +720,22 @@ public class jfPrincipal extends javax.swing.JFrame {
         objcliente.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        // TODO add your handling code here:
+        jdPagoComprobante obj = new jdPagoComprobante (this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        // TODO add your handling code here:
+        jdDevolucion objDevolucion = new jdDevolucion(this,true);
+        objDevolucion.setLocationRelativeTo(this);
+        objDevolucion.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -785,6 +815,8 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

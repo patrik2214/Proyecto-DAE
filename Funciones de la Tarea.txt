@@ -95,15 +95,51 @@ DECLARE
 
 BEGIN 
 		RETURN query
-		SELECT venta.numventa,cliente.nombres,cliente.dni,cliente.ruc,producto.nomproducto,detalle.cantidad,detalle.precioventa,detalle.descuento,detalle.subtotal,pago.fecha_pago,venta.tipocomprobante
+		SELECT venta.numventa,cliente.nombres,cliente.direccion,cliente.dni,cliente.ruc,producto.nomproducto,detalle.cantidad,detalle.precioventa,detalle.descuento,detalle.subtotal,pago.fecha_pago,venta.tipocomprobante,comprobante.codcomprobante
 		FROM cliente INNER JOIN venta ON cliente.codcliente=venta.codcliente
+		INNER JOIN comprobante ON comprobante.numventa=venta.numventa 
 		INNER JOIN pago ON pago.numventa=venta.numventa 
 		INNER JOIN detalle ON detalle.numventa=venta.numventa
 		INNER JOIN producto ON producto.codproducto=detalle.codproducto
-		WHERE venta.numventa=codventa;
+		WHERE venta.numventa=2 and venta.estadopago=true;
 	
 END;
 $$LANGUAGE'plpgsql'
 
 
 SELECT *FROM comprobante(1)
+
+
+
+
+
+
+
+
+
+
+--DROP FUNCTION comprobante(codventa integer)
+
+CREATE TABLE comprobante(
+codcomprobante integer primary key,
+numventa integer not null references venta
+);
+
+
+SELECT*FROM comprobante
+
+
+
+
+CREATE OR REPLACE FUNCTION comp()RETURNS TRIGGER AS
+$$
+DECLARE
+BEGIN
+	INSERT INTO comprobante VALUES((SELECT COALESCE(max(codcomprobante),0)+1 from comprobante),new.numventa);
+	RETURN new;
+END;
+$$LANGUAGE'plpgsql'
+
+CREATE TRIGGER tg_comprobante after insert on pago
+for each row execute procedure comp();
+

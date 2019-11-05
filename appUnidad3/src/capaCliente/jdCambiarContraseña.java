@@ -59,7 +59,7 @@ public class jdCambiarContraseña extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -70,7 +70,7 @@ public class jdCambiarContraseña extends javax.swing.JDialog {
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLogin.setText("Login");

@@ -60,7 +60,7 @@ public class jdEstadisticaVentas extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Total de Ventas Rergistradas:");

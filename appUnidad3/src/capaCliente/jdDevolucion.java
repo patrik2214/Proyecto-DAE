@@ -104,7 +104,7 @@ public class jdDevolucion extends javax.swing.JDialog {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 460, 120));
 
-        jpiDetalles.setBackground(new java.awt.Color(204, 255, 255));
+        jpiDetalles.setBackground(new java.awt.Color(204, 204, 204));
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

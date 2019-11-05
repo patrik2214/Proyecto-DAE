@@ -34,7 +34,7 @@ public class jdInicioSesion extends javax.swing.JDialog {
         setTitle(".: MODIFICAR CONTRASEÑA :.");
         setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/login.png"))); // NOI18N

@@ -162,7 +162,7 @@ public class jdVentas extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -199,11 +199,11 @@ public class jdVentas extends javax.swing.JDialog {
 
         txtTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        rdbBoleta.setBackground(new java.awt.Color(204, 255, 255));
+        rdbBoleta.setBackground(new java.awt.Color(204, 204, 204));
         rdbBoleta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rdbBoleta.setText("Boleta");
 
-        rdbFactura.setBackground(new java.awt.Color(204, 255, 255));
+        rdbFactura.setBackground(new java.awt.Color(204, 204, 204));
         rdbFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rdbFactura.setText("Factura");
 
@@ -275,7 +275,7 @@ public class jdVentas extends javax.swing.JDialog {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Producto:");

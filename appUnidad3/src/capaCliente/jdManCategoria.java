@@ -56,9 +56,9 @@ public class jdManCategoria extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Código:");
@@ -102,7 +102,7 @@ public class jdManCategoria extends javax.swing.JDialog {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -125,7 +125,7 @@ public class jdManCategoria extends javax.swing.JDialog {
 
         txtDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        chkVigencia.setBackground(new java.awt.Color(204, 255, 255));
+        chkVigencia.setBackground(new java.awt.Color(204, 204, 204));
         chkVigencia.setText("(Vigente)");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -276,7 +276,7 @@ public class jdManCategoria extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         tblMarcas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

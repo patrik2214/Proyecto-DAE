@@ -72,9 +72,9 @@ public class jdManProducto extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel5.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -96,7 +96,7 @@ public class jdManProducto extends javax.swing.JDialog {
             }
         });
 
-        chkVigencia.setBackground(new java.awt.Color(204, 255, 255));
+        chkVigencia.setBackground(new java.awt.Color(204, 204, 204));
         chkVigencia.setText("(Vigente)");
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/buscarMarca.png"))); // NOI18N
@@ -112,10 +112,9 @@ public class jdManProducto extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(spnStock)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbCategoria, 0, 114, Short.MAX_VALUE)
+                    .addComponent(spnStock, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNombre)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -149,7 +148,7 @@ public class jdManProducto extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel6.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Código:");
@@ -214,7 +213,7 @@ public class jdManProducto extends javax.swing.JDialog {
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
         btnNuevaMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/nuevo.png"))); // NOI18N
         btnNuevaMarca.addActionListener(new java.awt.event.ActionListener() {
@@ -367,7 +366,7 @@ public class jdManProducto extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

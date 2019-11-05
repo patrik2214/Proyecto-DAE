@@ -75,7 +75,7 @@ public class jdManCliente extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Código:");
@@ -118,7 +118,7 @@ public class jdManCliente extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Dirección:");
 
-        chkVigencia.setBackground(new java.awt.Color(204, 255, 255));
+        chkVigencia.setBackground(new java.awt.Color(204, 204, 204));
         chkVigencia.setText("Vigente");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

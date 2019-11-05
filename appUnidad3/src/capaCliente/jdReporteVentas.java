@@ -23,7 +23,6 @@ public class jdReporteVentas extends javax.swing.JDialog {
     public jdReporteVentas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        //llenarTablaInicial();
     }
 
     /**
@@ -199,17 +198,23 @@ public class jdReporteVentas extends javax.swing.JDialog {
         tbl.setModel(modelo);;
         
         SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
-        String f1=fecha.format(fecha1.getDate());
-        String f2=fecha.format(fecha2.getDate());
+        java.sql.Date f1=convertUtilTosql(fecha1.getDate());
+        java.sql.Date f2=convertUtilTosql(fecha2.getDate());
         try {
-            rs=objVenta.ReporteVentas(Date.valueOf(f1),Date.valueOf(f2));
+            
+            
+            
+            rs=objVenta.ReporteVentas(f1,f2);
             while(rs.next()){
-                modelo.addRow(new Object[]{rs.getInt("numventa"),rs.getDate("fecha"),rs.getString("nombres"),rs.getFloat("total"),rs.getFloat("subtotal"),rs.getFloat("IGV"),rs.getBoolean("estadopago"),rs.getString("tipo")});
+                modelo.addRow(new Object[]{rs.getInt("codigo"),rs.getDate("fecha"),rs.getString("cliente"),rs.getFloat("monto_total"),rs.getFloat("subtotal"),rs.getFloat("igv"),rs.getBoolean("estado"),rs.getString("tipo_pago")});
            }
         } catch (Exception e) {
         }
     }
-   
+   public static java.sql.Date convertUtilTosql(java.util.Date uDate){
+       java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+       return sDate;
+   }
 
     /**
      * @param args the command line arguments

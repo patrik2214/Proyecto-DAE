@@ -310,5 +310,61 @@ public class clsVenta {
         ResultSet resultado = sentencia.executeQuery();        
         return resultado;
     } 
+        
+        
+    public float Monto_Total(Integer cod) throws Exception {
+        strSQL = "SELECT SUM(subtotal) as monto FROM detalle WHERE numventa= "+ cod + "" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getFloat("monto");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al extraer código del Producto");
+        }
+        return 0;
+    }
 
+     public void pagocontado(Integer cod) throws Exception 
+    {
+        boolean valor=false;
+        try {
+            strSQL="SELECT estadopago FROM venta WHERE numventa=" + cod ;
+            
+            objConectar.conectar();
+            con=objConectar.getCon();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            
+            while(rs.next()){
+                valor=rs.getBoolean("estadopago");
+            }
+        
+            if(valor=false){
+                 String strSQL1 = "INSERT INTO pago VALUES ("+cod+",(SELECT COALESCE(max(codpago),0)+1 FROM pago),null,current_date,(SELECT total FROM venta WHERE numventa="+cod+"),0,(SELECT total FROM venta WHERE numventa="+cod+"),'contado',true)";
+                 sent.executeUpdate(strSQL1);
+                 JOptionPane.showMessageDialog(null, "Pago Registrado");            
+            }else{
+                JOptionPane.showMessageDialog(null,"No se puede pagar una venta que ya esta cancelada");
+            } 
+            con.commit();
+        } catch (Exception e) {
+            con.rollback();
+            throw new Exception("Error al registrar la devolucion");
+        }finally{
+            objConectar.desconectar();
+        }   
+    }
+   
+    public ResultSet comprobante(Integer cod) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT *FROM comprobante(?)");
+        sentencia.setInt(1, cod);
+        ResultSet resultado = sentencia.executeQuery();
+        return resultado;
+    }
+        
+        
 }

@@ -84,3 +84,26 @@ BEGIN
 	
 END;
 $$LANGUAGE'plpgsql'
+
+
+
+
+
+CREATE OR REPLACE FUNCTION comprobante(codventa integer)RETURNS TABLE (Codigo integer,ClienteN varchar(80),dni char(8),ruc char(11),Producto varchar(30),Cantidad integer,Precio decimal(8,2),descuento smallint, subtotal decimal(8,2),fecha date,tipo boolean) AS
+$$
+DECLARE
+
+BEGIN 
+		RETURN query
+		SELECT venta.numventa,cliente.nombres,cliente.dni,cliente.ruc,producto.nomproducto,detalle.cantidad,detalle.precioventa,detalle.descuento,detalle.subtotal,pago.fecha_pago,venta.tipocomprobante
+		FROM cliente INNER JOIN venta ON cliente.codcliente=venta.codcliente
+		INNER JOIN pago ON pago.numventa=venta.numventa 
+		INNER JOIN detalle ON detalle.numventa=venta.numventa
+		INNER JOIN producto ON producto.codproducto=detalle.codproducto
+		WHERE venta.numventa=codventa;
+	
+END;
+$$LANGUAGE'plpgsql'
+
+
+SELECT *FROM comprobante(1)

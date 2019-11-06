@@ -361,8 +361,20 @@ public class clsVenta {
         ResultSet resultado = sentencia.executeQuery();        
         return resultado;
     } 
-        
-        
+     
+    public String datos(String documento) throws Exception {
+        strSQL = "SELECT nombres FROM cliente WHERE dni='"+documento+"' or ruc ='"+documento+"' " ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getString("nombres");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al extraer nombre");
+        }
+       return null;
+    }
+       
     public float Monto_Total(Integer cod) throws Exception {
         strSQL = "SELECT SUM(subtotal) as monto FROM detalle WHERE numventa= "+ cod + "" ;
         try {
@@ -422,6 +434,15 @@ public class clsVenta {
         ResultSet resultado = sentencia.executeQuery();
         return resultado;
     }
-        
+       
+    public ResultSet detalle_pago(Integer cod) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT *FROM detalle(?)");
+        sentencia.setInt(1, cod);
+        ResultSet resultado = sentencia.executeQuery();
+        return resultado;
+    }
         
 }

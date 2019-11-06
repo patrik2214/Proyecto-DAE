@@ -447,7 +447,7 @@ public class jdPagoContado extends javax.swing.JDialog {
         tbl.setModel(modelo);
         
         try {
-            rs=objVenta.comprobante(cod);
+            rs=objVenta.detalle_pago(cod);
             while(rs.next()){
                 if(rs.getBoolean("tipo")){
                     txtDniRuc.setText(rs.getString("dni"));   
@@ -456,9 +456,9 @@ public class jdPagoContado extends javax.swing.JDialog {
                 }
                 txtNombre.setText(rs.getString("clienten"));
                 txtDireccion.setText(rs.getString("direccion"));
-                fecha.setDate(rs.getDate("fecha"));
+                //fecha.setDate(rs.getDate("fecha"));
                 
-                modelo.addRow(new Object[]{rs.getString("producto"),rs.getInt("cantidad"),rs.getFloat("precio"),rs.getInt("descuento"),rs.getFloat("subtotal")});
+                modelo.addRow(new Object[]{rs.getString("producto"),rs.getInt("cant"),rs.getFloat("precio"),rs.getInt("descu"),rs.getFloat("sub")});
            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Hubo algun error al enviar los datos");

@@ -55,7 +55,6 @@ public class jdCuotasCredito extends javax.swing.JDialog {
         Gruporbt = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNumeroVenta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -70,6 +69,7 @@ public class jdCuotasCredito extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCuotas = new javax.swing.JTable();
         txtDocumento = new javax.swing.JTextField();
+        txtNumeroVenta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -82,8 +82,6 @@ public class jdCuotasCredito extends javax.swing.JDialog {
         });
 
         jLabel1.setText("Venta N°:");
-
-        txtNumeroVenta.setEditable(false);
 
         jLabel2.setText("Cliente:");
 
@@ -150,6 +148,12 @@ public class jdCuotasCredito extends javax.swing.JDialog {
             }
         });
 
+        txtNumeroVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroVentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,15 +169,15 @@ public class jdCuotasCredito extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(rbtMensual)
-                            .addComponent(txtNumeroVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                             .addComponent(txtNombre)
                             .addComponent(txtMonto)
-                            .addComponent(spnNumCuotas)
+                            .addComponent(spnNumCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                             .addComponent(rbtSemanal)
-                            .addComponent(txtDocumento))
+                            .addComponent(txtDocumento)
+                            .addComponent(txtNumeroVenta))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -305,8 +309,17 @@ public class jdCuotasCredito extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "El cliente NO tiene deudas pendientes de pago");
         }
         
+        try {
+            objcuota.datos(documento);
+        } catch (Exception ex) {
+            Logger.getLogger(jdCuotasCredito.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_txtDocumentoActionPerformed
+
+    private void txtNumeroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroVentaActionPerformed
 
     private void generarCuotas(){
         DefaultTableModel modelo = new DefaultTableModel();

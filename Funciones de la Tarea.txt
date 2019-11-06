@@ -1,3 +1,37 @@
+CREATE OR REPLACE FUNCTION Listar_deuda(documento varchar(11))RETURNS TABLE(Cliente VARCHAR(80),numventa integer, pago integer, fecha date, monto decimal(8,2),estado boolean) AS
+$$
+DECLARE
+
+BEGIN
+	RETURN query
+	SELECT cliente.nombres,pago.numventa,pago.codpago,pago.fecha_programada,pago.monto,pago.estado 
+	FROM pago
+	INNER JOIN venta on venta.numventa=pago.numventa 
+	INNER JOIN cliente on cliente.codcliente=venta.codcliente
+	WHERE pago.tipo='credito' and cliente.dni=documento or cliente.ruc=documento;
+END;
+$$LANGUAGE'plpgsql'
+
+
+SELECT * FROM Listar_deuda('72120524')
+
+
+CREATE OR REPLACE FUNCTION deuda(documento varchar(11))RETURNS int AS
+$$
+DECLARE
+	dato int;
+BEGIN
+	SELECT COUNT(*)into dato FROM pago
+	INNER JOIN venta on venta.numventa=pago.numventa 
+	INNER JOIN cliente on cliente.codcliente=venta.codcliente
+	WHERE pago.tipo='credito' and cliente.dni=documento or cliente.ruc=documento;
+	RETURN dato;
+	
+END;
+$$LANGUAGE'plpgsql'
+
+
+
 select*from cliente
 
 CREATE OR REPLACE FUNCTION fn_cliente(dni char(8),ruc char(11),nombre varchar(30),telefono varchar(13),correo varchar(50),direccion varchar(50),vigencia boolean,tipo integer)RETURNS void AS
@@ -112,12 +146,6 @@ SELECT *FROM comprobante(1)
 
 
 
-
-
-
-
-
-
 --DROP FUNCTION comprobante(codventa integer)
 
 CREATE TABLE comprobante(
@@ -126,20 +154,20 @@ numventa integer not null references venta
 );
 
 
+
 SELECT*FROM comprobante
 
 
-
-
-CREATE OR REPLACE FUNCTION comp()RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION comp()RETURNS trigger AS
 $$
 DECLARE
+	dato int;
 BEGIN
 	INSERT INTO comprobante VALUES((SELECT COALESCE(max(codcomprobante),0)+1 from comprobante),new.numventa);
 	RETURN new;
 END;
 $$LANGUAGE'plpgsql'
 
-CREATE TRIGGER tg_comprobante after insert on pago
-for each row execute procedure comp();
+CREATE TRIGGER tg_comprobante after insert on venta
+for each row execute procedure comp()
 

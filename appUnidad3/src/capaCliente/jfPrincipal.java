@@ -84,6 +84,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem24 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem25 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
@@ -502,7 +503,7 @@ public class jfPrincipal extends javax.swing.JFrame {
 
         jMenu8.setText("Pagos");
 
-        jMenuItem16.setText("Registrar pago ");
+        jMenuItem16.setText("Pago al Contado");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem16ActionPerformed(evt);
@@ -510,7 +511,20 @@ public class jfPrincipal extends javax.swing.JFrame {
         });
         jMenu8.add(jMenuItem16);
 
+        jMenuItem25.setText("Generar Cuotas de Pago Creditos");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem25);
+
         jMenuItem17.setText("Pago de crédito");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem17);
 
         jMenu5.add(jMenu8);
@@ -673,7 +687,9 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
-        
+        jdPagoContado objContado = new jdPagoContado(this,true);
+        objContado.setLocationRelativeTo(this);
+        objContado.setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -723,7 +739,7 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
         // TODO add your handling code here:
-        jdPagoComprobante obj = new jdPagoComprobante (this, true);
+        jdComprobante obj = new jdComprobante (this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
         
@@ -736,6 +752,20 @@ public class jfPrincipal extends javax.swing.JFrame {
         objDevolucion.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem24ActionPerformed
+
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        // TODO add your handling code here:
+        jdCuotasCredito objCredito = new jdCuotasCredito(this,true);
+        objCredito.setLocationRelativeTo(this);
+        objCredito.setVisible(true);
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        // TODO add your handling code here:
+        jdPagoCredito objCredito = new jdPagoCredito(this,true);
+        objCredito.setLocationRelativeTo(this);
+        objCredito.setVisible(true);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -817,6 +847,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

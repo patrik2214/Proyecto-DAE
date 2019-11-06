@@ -217,6 +217,55 @@ public class clsVenta {
     }
    
    
+   
+      //para registrar pagos
+    public void RegistarCredito(String numVenta, String numCuota, String fecha,String monto) throws Exception{
+
+      String strSQL1 = "INSERT INTO pago VALUES ("+numVenta+","+numCuota+",'"+fecha+"',0,0,null,"+monto+",'credito',false)";
+        
+        try {
+            objConectar.ejecutarBD(strSQL1);
+        } catch (Exception e) {
+            throw new Exception("Error al registrar el pago de la venta");
+        }
+    }
+    
+    //listar las cuotas pendientes de pago de un cliente
+    public ResultSet listarcuotasporpagar(String documento) throws Exception{
+         strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al listar las cuotas pendientes de pago del cliente");
+        }
+    }
+    
+    //pagar una cuota 
+    public void pagarcredito(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
+         strSQL = "UPDATE pago SET estado=true, fecha_pago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numventa="+codventa+" AND codpago="+codcuota+";";
+        try {
+            objConectar.ejecutarBD(strSQL);
+            
+        } catch (Exception e) {
+            throw new Exception("Error al registrar el pago de la Cuota");
+        }
+    }
+    
+    //Saber si hay deudas
+    public int saberdeuda(String documento) throws Exception{
+         strSQL = "SELECT * FROM DEUDA('"+documento+"') as resultado;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("resultado");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al saber las deudas del cliente");
+        }
+        return 0;
+    }
+    
    public int TotalVentas() throws Exception 
     {
         int rpta=0;
@@ -325,7 +374,7 @@ public class clsVenta {
         return 0;
     }
 
-     public void pagocontado(Integer cod) throws Exception 
+     public void pagocontado(Integer cod,float ingreso,float vuelto) throws Exception 
     {
         
         try {
@@ -346,7 +395,7 @@ public class clsVenta {
             if(valor){
                 JOptionPane.showMessageDialog(null,"No se puede pagar una venta que ya esta cancelada");          
             }else{
-                String strSQL1 = "INSERT INTO pago VALUES ("+cod+",(SELECT COALESCE(max(codpago),0)+1 FROM pago),null,current_date,(SELECT total FROM venta WHERE numventa="+cod+"),0,(SELECT total FROM venta WHERE numventa="+cod+"),'contado',true)";
+                String strSQL1 = "INSERT INTO pago VALUES ("+cod+",(SELECT COALESCE(max(codpago),0)+1 FROM pago),null,current_date,"+ingreso+","+vuelto+",(SELECT total FROM venta WHERE numventa="+cod+"),'contado',true)";
                 String strSQL2 = "UPDATE venta SET estadopago=true WHERE numventa="+cod+"";
                 sent.executeUpdate(strSQL1);
                 sent.executeUpdate(strSQL2);

@@ -82,7 +82,6 @@ public class jdVentas extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        btnPagar = new javax.swing.JButton();
         btnSalir1 = new javax.swing.JButton();
         btnSalir2 = new javax.swing.JButton();
 
@@ -429,21 +428,10 @@ public class jdVentas extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
-
-        btnPagar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/marca.png"))); // NOI18N
-        btnPagar.setText("Pagar");
-        btnPagar.setIconTextGap(0);
-        btnPagar.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        btnPagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagarActionPerformed(evt);
-            }
-        });
 
         btnSalir1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/guardar.png"))); // NOI18N
@@ -473,15 +461,10 @@ public class jdVentas extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                        .addGap(8, 8, 8))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSalir2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSalir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,8 +473,6 @@ public class jdVentas extends javax.swing.JDialog {
                 .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -615,24 +596,6 @@ public class jdVentas extends javax.swing.JDialog {
         // TODO add your handling code here:
         //llenarTablaInicial();
     }//GEN-LAST:event_formWindowActivated
-
-    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-        try {
-            // TODO add your handling code here:
-            objVenta.pagocontado(Integer.parseInt(txtNumero.getText()));
-            num = txtNumero.getText();  
-            
-            jdPagoComprobante obj = new jdPagoComprobante ((Frame) SwingUtilities.getWindowAncestor(this),true);
-            obj.numero=num;
-            obj.info(Integer.parseInt(num));
-            obj.setVisible(true);
-            
-        } catch (Exception ex) {
-            Logger.getLogger(jdVentas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
 
@@ -844,7 +807,6 @@ public class jdVentas extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnBuscar3;
     private javax.swing.JButton btnBuscarVenta;
-    private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnSalir2;
     private com.toedter.calendar.JDateChooser jDateChooser1;

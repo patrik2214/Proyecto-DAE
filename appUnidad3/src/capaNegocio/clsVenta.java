@@ -268,6 +268,19 @@ public class clsVenta {
         return 0;
     }
     
+    public int deuda_t(String venta) throws Exception{
+         strSQL = "SELECT count(*) as resultado pago WHERE numventa= "+venta+"'";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("resultado");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al saber las deudas del cliente");
+        }
+        return 0;
+    }
+    
    public int TotalVentas() throws Exception 
     {
         int rpta=0;

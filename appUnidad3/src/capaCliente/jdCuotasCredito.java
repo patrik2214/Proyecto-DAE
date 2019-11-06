@@ -304,8 +304,8 @@ public class jdCuotasCredito extends javax.swing.JDialog {
             try {
                 nada = objcuota.datos(txtDocumento.getText(),txtNumeroVenta.getText());
                 while (nada.next()){
-                txtMonto.setText(String.valueOf(nada.getFloat("total")));
-                txtNombre.setText(String.valueOf(nada.getString("nombres")));
+                    txtMonto.setText(String.valueOf(nada.getFloat("total")));
+                    txtNombre.setText(String.valueOf(nada.getString("nombres")));
                }
             } catch (Exception ex) {
                 Logger.getLogger(jdCuotasCredito.class.getName()).log(Level.SEVERE, null, ex); 

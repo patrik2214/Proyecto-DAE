@@ -17,13 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-/**
- INTEGRANTES:
-   - BENEL RAMIREZ, Sara
-   - CASTRO FERNANDEZ, Paola   
-   - VILCHEZ VILLEGAS, José Carlos
-   - YOMONA PARRAGUEZ, Cinthya
- */
 
 public class jdPagoCredito extends javax.swing.JDialog {
     clsVenta objventa = new clsVenta();

@@ -362,12 +362,12 @@ public class clsVenta {
         return resultado;
     } 
      
-    public String datos(String documento) throws Exception {
-        strSQL = "SELECT nombres FROM cliente WHERE dni='"+documento+"' or ruc ='"+documento+"' " ;
+    public ResultSet datos(String documento,String venta) throws Exception {
+        strSQL = "SELECT cliente.nombres ,venta.total FROM  cliente INNER JOIN venta on venta.codcliente=cliente.codcliente WHERE venta.numventa="+venta+" and cliente.dni='"+documento+"' or cliente.ruc ='"+documento+"'";
         try {
             rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
-                return rs.getString("nombres");
+                return rs;
             }
         } catch (Exception e) {
             throw new Exception("Error al extraer nombre");

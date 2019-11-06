@@ -8,6 +8,7 @@ package capaCliente;
 
 import capaNegocio.clsVenta;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -15,21 +16,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- INTEGRANTES:
-   - BENEL RAMIREZ, Sara
-   - CASTRO FERNANDEZ, Paola   
-   - VILCHEZ VILLEGAS, José Carlos
-   - YOMONA PARRAGUEZ, Cinthya
- */
 
 public class jdCuotasCredito extends javax.swing.JDialog {
  
     clsVenta objcuota = new clsVenta();
     boolean pagado=false;
     String[][] cuotas;
-    String montoTotal;
-    String documento;
     /**
      * Creates new form JDPago2
      */
@@ -297,7 +289,8 @@ public class jdCuotasCredito extends javax.swing.JDialog {
         // TODO add your handling code here:
         int deuda = 0;
         try {
-            deuda=objcuota.saberdeuda(documento);
+            deuda=objcuota.saberdeuda(txtDocumento.getText());
+            
         } catch (Exception ex) {
             Logger.getLogger(jdCuotasCredito.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -307,18 +300,25 @@ public class jdCuotasCredito extends javax.swing.JDialog {
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(this, "El cliente NO tiene deudas pendientes de pago");
+            ResultSet nada;
+            try {
+                nada = objcuota.datos(txtDocumento.getText(),txtNumeroVenta.getText());
+                while (nada.next()){
+                txtMonto.setText(String.valueOf(nada.getFloat("total")));
+                txtNombre.setText(String.valueOf(nada.getString("nombres")));
+               }
+            } catch (Exception ex) {
+                Logger.getLogger(jdCuotasCredito.class.getName()).log(Level.SEVERE, null, ex); 
+            
+           }
         }
-        
-        try {
-            objcuota.datos(documento);
-        } catch (Exception ex) {
-            Logger.getLogger(jdCuotasCredito.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
         
     }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void txtNumeroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroVentaActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtNumeroVentaActionPerformed
 
     private void generarCuotas(){
@@ -334,7 +334,7 @@ public class jdCuotasCredito extends javax.swing.JDialog {
         cuotas = new String[cant][8];
         
         Float apagar;
-        Float mon= Float.parseFloat(montoTotal);
+        Float mon= Float.parseFloat(txtMonto.getText());
         apagar = (mon/cant);
         
         

@@ -405,7 +405,7 @@ public class jdPagoContado extends javax.swing.JDialog {
             // TODO add your handling code here:
             float monto=Float.parseFloat(txtTotal.getText());
             float ingreso=Float.parseFloat(txtIngreso.getText());
-            float vuelto = monto-ingreso;
+            float vuelto = ingreso-monto;
             
             txtVuelto.setText(String.valueOf(vuelto));
             objVenta.pagocontado(Integer.parseInt(txtNumero.getText()),ingreso,vuelto);

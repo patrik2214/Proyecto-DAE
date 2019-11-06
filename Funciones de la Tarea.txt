@@ -120,10 +120,19 @@ END;
 $$LANGUAGE'plpgsql'
 
 
+CREATE TABLE comprobante(
+codcomprobante integer primary key,
+numventa integer not null references venta
+);
 
 
 
-CREATE OR REPLACE FUNCTION comprobante(codventa integer)RETURNS TABLE (Codigo integer,ClienteN varchar(80),dni char(8),ruc char(11),Producto varchar(30),Cantidad integer,Precio decimal(8,2),descuento smallint, subtotal decimal(8,2),fecha date,tipo boolean) AS
+SELECT*FROM comprobante
+
+
+
+
+CREATE OR REPLACE FUNCTION comprobante(codventa integer)RETURNS TABLE (Codigo integer,ClienteN varchar(80),direccion varchar(30),dni char(8),ruc char(11),Producto varchar(30),Cantidad integer,Precio decimal(8,2),descuento smallint, subtotal decimal(8,2),fecha date,tipo boolean) AS
 $$
 DECLARE
 
@@ -148,14 +157,7 @@ SELECT *FROM comprobante(1)
 
 --DROP FUNCTION comprobante(codventa integer)
 
-CREATE TABLE comprobante(
-codcomprobante integer primary key,
-numventa integer not null references venta
-);
 
-
-
-SELECT*FROM comprobante
 
 
 CREATE OR REPLACE FUNCTION comp()RETURNS trigger AS

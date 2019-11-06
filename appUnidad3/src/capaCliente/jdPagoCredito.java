@@ -244,7 +244,7 @@ public class jdPagoCredito extends javax.swing.JDialog {
             
             int f=objventa.saberdeuda(txtDocumento.getText());
                 if(numCuota==f){
-                    jdComprobante obj = new jdComprobante ((Frame) SwingUtilities.getWindowAncestor(this),true);
+                    jdComprobanteCr obj = new jdComprobanteCr ((Frame) SwingUtilities.getWindowAncestor(this),true);
                     obj.numero=String.valueOf(numVenta);
                     obj.info(numVenta);
                     obj.setVisible(true);

@@ -53,6 +53,8 @@ public class clsVenta {
             sent=con.createStatement();
             strSQL = "INSERT INTO venta VALUES (" + cod + ", CURRENT_DATE, " + total + ", " + subtotal + ", " + igv + ", " + tipo + ", false, " + cliente + " );";
             sent.executeUpdate(strSQL);
+            strSQL ="INSERT INTO comprobante VALUES((SELECT COALESCE(max(codcomprobante),0)+1 FROM comprobante)," + cod + ")";
+            sent.executeUpdate(strSQL);
             int ctd = tblDetalle.getRowCount();
             for (int i=0; i<ctd; i++){
                 String descuento = tblDetalle.getValueAt(i, 4).toString();

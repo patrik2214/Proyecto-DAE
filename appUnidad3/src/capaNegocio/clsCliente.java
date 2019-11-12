@@ -11,6 +11,7 @@ public class clsCliente {
     ResultSet rs=null;
     Connection con=null;
     Statement sent;
+    
 
     public ResultSet listarTipoClientes() throws Exception{
         strSQL = "select * from TIPO_CLIENTE" ;

@@ -16,7 +16,7 @@ public class clsJDBC {
         this.url = "jdbc:postgresql://localhost:5432/bdApp3";
         this.user = "postgres";
         //Cambiar la contraseña
-        this.password = "123456789";
+        this.password = "USAT2019";
         this.con = null;
     }    
     //Conectar
@@ -25,7 +25,6 @@ public class clsJDBC {
            Class.forName(driver);
            con=DriverManager.getConnection(url, user, password);
         }catch(ClassNotFoundException | SQLException ex){
-            throw new Exception("Error al conectar a la BD!");
         }
     }
     //Desconectar

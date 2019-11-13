@@ -2,14 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rp_ReporteGruposProducto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="062849ea-a604-4892-8d68-458c8f532772">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="24"/>
 	<queryString>
-		<![CDATA[select producto.codproducto, producto.nomproducto,producto.descripcion, producto.stock , producto.precio, categoria.codcategoria, categoria.nomcategoria, categoria.descripcion as cat from producto inner join categoria on categoria.codcategoria=producto.codcategoria
-WHERE producto.vigencia=true]]>
+		<![CDATA[select producto.codproducto, producto.nomproducto,producto.descripcion as pro , producto.stock , producto.precio, categoria.codcategoria, categoria.nomcategoria, categoria.descripcion as cat from producto inner join categoria on categoria.codcategoria=producto.codcategoria
+WHERE producto.vigencia=true
+ORDER BY producto.nomproducto]]>
 	</queryString>
 	<field name="codproducto" class="java.lang.Integer"/>
 	<field name="nomproducto" class="java.lang.String"/>
-	<field name="descripcion" class="java.lang.String"/>
+	<field name="pro" class="java.lang.String"/>
 	<field name="stock" class="java.lang.Integer"/>
 	<field name="precio" class="java.math.BigDecimal"/>
 	<field name="codcategoria" class="java.lang.Integer"/>
@@ -121,6 +122,10 @@ WHERE producto.vigencia=true]]>
 			<line>
 				<reportElement x="1" y="43" width="554" height="1" uuid="7dee8042-4f39-4e40-b9dc-90a081640de5"/>
 			</line>
+			<staticText>
+				<reportElement x="213" y="2" width="100" height="20" uuid="ca3d590c-ec0e-4827-b5b3-bdd1e4db8239"/>
+				<text><![CDATA[pro]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -136,11 +141,6 @@ WHERE producto.vigencia=true]]>
 				<textFieldExpression><![CDATA[$F{nomproducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="197" y="0" width="152" height="20" uuid="1a7c4ca8-b1c9-41a0-8640-1a77806f4693"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="349" y="0" width="85" height="20" uuid="42515cd8-5f39-4834-bc2d-4f113c757e6c"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
@@ -149,6 +149,10 @@ WHERE producto.vigencia=true]]>
 				<reportElement x="434" y="0" width="121" height="20" uuid="1d0da488-4e19-42f2-8871-86c95b9781c5"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="0" width="152" height="20" uuid="fb15ea8b-ea0f-44d1-b94f-8ee9450ed611"/>
+				<textFieldExpression><![CDATA[$F{pro}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

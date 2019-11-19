@@ -173,3 +173,27 @@ $$LANGUAGE'plpgsql'
 CREATE TRIGGER tg_comprobante after insert on venta
 for each row execute procedure comp()
 
+
+
+
+
+
+---Creamos la tabla establecimiento 
+
+--19-11-2019
+
+
+SELECT cliente.nombres,venta.fecha,venta.subtotal,venta.igv,venta.total,venta.serie,
+lpad(venta.numventa::text,8,'0') as correlativo, --sirve para agregar en esre caso los 000 del correlativo 
+(CASE WHEN venta.tipocomprobante=true THEN 'BOLETA ELECTRONICA' ELSE 'FACTURA ELECTRONICA' END),
+producto.nomproducto,detalle.cantidad,detalle.subtotal as sub,
+establecimiento.razon_social,establecimiento.ruc,establecimiento.direccion,
+establecimiento.distrito,establecimiento.provincia,establecimiento.departamento
+FROM venta 
+INNER JOIN cliente on cliente.codcliente=venta.codcliente
+INNER JOIN  detalle on detalle.numventa=venta.numventa
+INNER JOIN  producto on producto.codproducto=detalle.codproducto
+INNER JOIN  establecimiento on establecimiento.id=1
+
+
+

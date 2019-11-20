@@ -97,9 +97,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem28 = new javax.swing.JMenuItem();
         jMenuItem29 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem31 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         MnuEstadisticas = new javax.swing.JMenuItem();
+        jMenuItem30 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -603,6 +605,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuItem12.setText("Ventas");
         jMenu7.add(jMenuItem12);
 
+        jMenuItem31.setText("Reporte de Ventas por Cliente");
+        jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem31ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem31);
+
         jMenuItem13.setText("Ingresos");
         jMenu7.add(jMenuItem13);
 
@@ -616,6 +626,14 @@ public class jfPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu7.add(MnuEstadisticas);
+
+        jMenuItem30.setText("Imprimir Reporte");
+        jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem30ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem30);
 
         jMenuBar1.add(jMenu7);
 
@@ -834,6 +852,23 @@ public class jfPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem29ActionPerformed
 
+    private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
+        // TODO add your handling code here:
+        jdImprimirReporte obj = new jdImprimirReporte (this,true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true); 
+        
+    }//GEN-LAST:event_jMenuItem30ActionPerformed
+
+    private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
+        // TODO add your handling code here:
+        jdImprimirReporteCliente obj = new jdImprimirReporteCliente(this,true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true); 
+        
+        
+    }//GEN-LAST:event_jMenuItem31ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -920,6 +955,8 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem30;
+    private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

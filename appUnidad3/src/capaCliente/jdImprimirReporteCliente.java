@@ -5,10 +5,13 @@
  */
 package capaCliente;
 
+import capaNegocio.clsCliente;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
 import util.Reportes;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.swing.JRViewer;
@@ -18,12 +21,14 @@ import util.Reportes;
  *
  * @author laboratorio_computo
  */
-public class jdImprimirReporte extends javax.swing.JDialog {
+public class jdImprimirReporteCliente extends javax.swing.JDialog {
 
     /**
      * Creates new form jdImprimirReporte
      */
-    public jdImprimirReporte(java.awt.Frame parent, boolean modal) {
+    
+    clsCliente objCliente = new clsCliente();
+    public jdImprimirReporteCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -38,17 +43,23 @@ public class jdImprimirReporte extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtventa = new javax.swing.JTextField();
+        txtdni = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        cbocliente = new javax.swing.JComboBox<>();
         vistaReporte = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Número de Venta:");
+        jLabel1.setText("Ingresar Dni:");
 
         jButton1.setText("Ver Reporte");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +70,8 @@ public class jdImprimirReporte extends javax.swing.JDialog {
 
         jButton2.setText("Imprimir");
 
+        cbocliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -66,9 +79,11 @@ public class jdImprimirReporte extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtventa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtdni, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(47, 47, 47)
                 .addComponent(jButton2)
@@ -77,12 +92,13 @@ public class jdImprimirReporte extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtventa, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(txtdni)
                     .addComponent(jLabel1)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(cbocliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -94,7 +110,7 @@ public class jdImprimirReporte extends javax.swing.JDialog {
         );
         vistaReporteLayout.setVerticalGroup(
             vistaReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,7 +124,7 @@ public class jdImprimirReporte extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(vistaReporte))
         );
 
@@ -120,18 +136,35 @@ public class jdImprimirReporte extends javax.swing.JDialog {
         
         // TODO add your handling code here:
         try {
-            Container contenedor = this.vistaReporte;
-            contenedor.setLayout(new BorderLayout());
             
-            //Parametros
+            if(txtdni.getText().isEmpty()){
+                
+                Container contenedor = this.vistaReporte;
+                contenedor.setLayout(new BorderLayout());
             
-            Integer numeroVenta= Integer.parseInt(txtventa.getText().toString());
-            Map<String, Object> parametros = new HashMap<String, Object>();
-            parametros.put("p_valor", numeroVenta);                                 
+                //Partxtdni            
+                String dni=cbocliente.getSelectedItem().toString();
+                Map<String, Object> parametros = new HashMap<String, Object>();
+                parametros.put("dni", dni);                                 
             
-            JRViewer vistaReporte = new Reportes().reporteInterno("report1.jasper",parametros);
-            contenedor.add(vistaReporte);
-            this.vistaReporte.setVisible(true);
+                JRViewer vistaReporte = new Reportes().reporteInterno("report2.jasper",parametros);
+                contenedor.add(vistaReporte);
+                this.vistaReporte.setVisible(true);
+                
+            }else{
+                Container contenedor = this.vistaReporte;
+                contenedor.setLayout(new BorderLayout());
+            
+                //Partxtdni            
+                String dni=txtdni.getText().toString();
+                Map<String, Object> parametros = new HashMap<String, Object>();
+                parametros.put("dni", dni);                                 
+            
+                JRViewer vistaReporte = new Reportes().reporteInterno("report2.jasper",parametros);
+                contenedor.add(vistaReporte);
+                this.vistaReporte.setVisible(true);
+            }
+            
             
             
             
@@ -140,6 +173,25 @@ public class jdImprimirReporte extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        listar_clientes();
+    }//GEN-LAST:event_formWindowOpened
+
+    public void listar_clientes(){
+        ResultSet rsTipoC=null;
+        DefaultComboBoxModel modeloTC = new DefaultComboBoxModel();
+        cbocliente.setModel(modeloTC);
+        try {
+            rsTipoC=objCliente.listarClientes();
+            while(rsTipoC.next()){
+               modeloTC.addElement(rsTipoC.getString("dni"));
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -157,20 +209,21 @@ public class jdImprimirReporte extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jdImprimirReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jdImprimirReporteCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jdImprimirReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jdImprimirReporteCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jdImprimirReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jdImprimirReporteCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jdImprimirReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jdImprimirReporteCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                jdImprimirReporte dialog = new jdImprimirReporte(new javax.swing.JFrame(), true);
+                jdImprimirReporteCliente dialog = new jdImprimirReporteCliente(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -183,11 +236,12 @@ public class jdImprimirReporte extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbocliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtventa;
+    private javax.swing.JTextField txtdni;
     private javax.swing.JDesktopPane vistaReporte;
     // End of variables declaration//GEN-END:variables
 }

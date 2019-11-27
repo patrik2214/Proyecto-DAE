@@ -16,7 +16,7 @@ public class clsJDBC {
         this.url = "jdbc:postgresql://localhost:5432/bdApp3";
         this.user = "postgres";
         //Cambiar la contraseña
-        this.password = "USAT2019";
+        this.password = "123456789";
         this.con = null;
     }    
     //Conectar

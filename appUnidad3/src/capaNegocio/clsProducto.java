@@ -250,4 +250,19 @@ public class clsProducto {
             throw new Exception("Error al actualizar stock");
         }
     }
+    
+    public ResultSet Filtro(String opcion,float p1,float p2, int c1, int c2, boolean valor) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("SELECT * FROM fn_busqueda(?,?,?,?,?,?)");
+        sentencia.setString(1, opcion);
+        sentencia.setFloat(2, p1);
+        sentencia.setFloat(3, p2);
+        sentencia.setInt(4, c1);
+        sentencia.setInt(5, c2);
+        sentencia.setBoolean(6, valor);
+        ResultSet resultado = sentencia.executeQuery();
+        return resultado;
+    }
 }

@@ -112,6 +112,11 @@ public class jdManMarca extends javax.swing.JDialog {
 
         chkVigencia.setBackground(new java.awt.Color(204, 204, 204));
         chkVigencia.setText("(Vigente)");
+        chkVigencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkVigenciaActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/buscarMarca.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -438,6 +443,10 @@ public class jdManMarca extends javax.swing.JDialog {
         // TODO add your handling code here:
         btnBuscar.requestFocus();
     }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void chkVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkVigenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkVigenciaActionPerformed
 
     private void listarMarcas(){
         ResultSet rsMarcas = null;
